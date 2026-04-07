@@ -30,6 +30,25 @@ public class Phrase {
 
     // AJOUTEZ VOTRE CODE CI-DESSOUS
 
+    public int getNbMots(){
+        return nbMots;
+    }
+
+    public int getLongueur(){
+        int tailleTotal = 0;
+        Mot courant = premier;
+
+        while(courant != null){
+            tailleTotal += courant.getLongueur();
+            if (courant.suivant == null){
+                tailleTotal++;
+            }
+            courant = courant.suivant;
+        }
+
+        return tailleTotal;
+    }
+
     public void ajouter(Mot mot) {
         // Codez-moi!
     }
