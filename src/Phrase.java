@@ -50,7 +50,20 @@ public class Phrase {
     }
 
     public void ajouter(Mot mot) {
-        // Codez-moi!
+        Mot courant = premier;
+
+        if (){
+
+        }
+
+        if (courant == null){
+            courant = mot;
+            nbMots++;
+        }
+        else{
+            dernier = mot;
+            nbMots++;
+        }
     }
 
     public void ajouter(Phrase autre) {
