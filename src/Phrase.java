@@ -51,23 +51,34 @@ public class Phrase {
 
     public void ajouter(Mot mot) {
         Mot courant = premier;
-
-        if (){
-
-        }
-
-        if (courant == null){
-            courant = mot;
-            nbMots++;
-        }
-        else{
+        if(courant == null){
+            premier = mot;
             dernier = mot;
-            nbMots++;
+            return;
+        }else {
+            dernier.suivant = mot;
+            dernier = courant;
         }
+
+        dernier.suivant = null;
+
+        nbMots++;
     }
 
     public void ajouter(Phrase autre) {
-        // Codez-moi!
+        if (autre == null && autre.premier == null){
+            return;
+        }
+
+        if (this.premier == null){
+            this.premier = autre.premier;
+            this.dernier = autre.dernier;
+        }else {
+            this.dernier.suivant = autre.premier;
+            this.dernier = autre.dernier;
+        }
+
+        this.nbMots += autre.getNbMots();
     }
 
     public boolean inserer(Phrase autre, int indexMot) {
