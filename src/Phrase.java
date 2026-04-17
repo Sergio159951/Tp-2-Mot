@@ -70,7 +70,7 @@ public class Phrase {
             return;
         }
 
-        if (this.premier == null){
+        if(this.premier == null){
             this.premier = autre.premier;
             this.dernier = autre.dernier;
         }else {
@@ -82,7 +82,17 @@ public class Phrase {
     }
 
     public boolean inserer(Phrase autre, int indexMot) {
-        // Codez-moi!
+        if(indexMot == 0){
+            autre.dernier.suivant = premier;
+            premier = autre.premier;
+        }
+
+        Mot courant = premier;
+        if(indexMot == this.nbMots){
+            this.dernier.suivant = autre.premier;
+
+        }
+
         return true;
     }
 }
