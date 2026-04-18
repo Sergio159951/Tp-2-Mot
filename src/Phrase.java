@@ -49,6 +49,49 @@ public class Phrase {
         return tailleTotal;
     }
 
+    public Mot getMot(int indexMot){
+        Mot courant = premier;
+
+        if(indexMot < 0 || indexMot > nbMots){
+            return null;
+        }
+
+        for(int i = 0; i < indexMot; i++){
+            courant = courant.suivant;
+        }
+
+        return courant;
+    }
+
+    public char getLettre(int indexMot){
+        if(indexMot < 0 || indexMot > getLongueur()){
+            return '-';
+        }
+        Mot courant = premier;
+        int position = 0;
+
+        while(courant != null){
+            if(indexMot < position + courant.getLongueur()){
+                return courant.getLettre(indexMot - position);
+            }
+            position += courant.getLongueur();
+            if(indexMot == position){
+                return ' ';
+            }
+            position++;
+            courant = courant.suivant;
+        }
+        return '-';
+    }
+
+    public char getLettre(int indexMot, int indexLettre){
+        Mot mot = getMot(indexMot);
+        if(mot != null){
+            return mot.getLettre(indexLettre);
+        }
+        return '-';
+    }
+
     public void ajouter(Mot mot) {
         Mot courant = premier;
         if(courant == null){
