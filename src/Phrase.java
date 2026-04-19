@@ -52,7 +52,7 @@ public class Phrase {
     public Mot getMot(int indexMot){
         Mot courant = premier;
 
-        if(indexMot < 0 || indexMot > nbMots){
+        if(indexMot < 0 || indexMot >= nbMots){
             return null;
         }
 
@@ -102,7 +102,6 @@ public class Phrase {
             dernier.suivant = mot;
             dernier = courant;
         }
-
         dernier.suivant = null;
 
         nbMots++;
@@ -125,17 +124,28 @@ public class Phrase {
     }
 
     public boolean inserer(Phrase autre, int indexMot) {
+        if(autre == null || autre.premier == null){
+            return false;
+        }
+        if(indexMot < 0 || indexMot >= nbMots){
+            return false;
+        }
+        
         if(indexMot == 0){
             autre.dernier.suivant = premier;
+            if(premier == null){
+               dernier = autre.dernier;
+            }
             premier = autre.premier;
+        }else if (indexMot == nbMots) {
+            dernier.suivant = autre.premier;
+            dernier = autre.dernier;
+        }else{
+            Mot avant = getMot(indexMot - 1);
+            autre.dernier.suivant = avant.suivant;
+            avant.suivant = autre.premier;
         }
-
-        Mot courant = premier;
-        if(indexMot == this.nbMots){
-            this.dernier.suivant = autre.premier;
-
-        }
-
+        nbMots += autre.nbMots;
         return true;
     }
 }
