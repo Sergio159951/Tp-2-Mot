@@ -92,23 +92,33 @@ public class Phrase {
         return '-';
     }
 
+    public void ajouter(char c){
+    if(dernier == null){
+        Mot nouveau = new Mot(String.valueOf(c));
+        ajouter(nouveau);
+    }else {
+        dernier.ajouter(c);
+    }
+    nbMots++;
+}
+
     public void ajouter(Mot mot) {
         Mot courant = premier;
         if(courant == null){
             premier = mot;
             dernier = mot;
+            nbMots++;
             return;
         }else {
             dernier.suivant = mot;
-            dernier = courant;
+            dernier = mot;
         }
         dernier.suivant = null;
-
         nbMots++;
     }
 
     public void ajouter(Phrase autre) {
-        if (autre == null && autre.premier == null){
+        if (autre == null || autre.premier == null){
             return;
         }
 
@@ -127,7 +137,7 @@ public class Phrase {
         if(autre == null || autre.premier == null){
             return false;
         }
-        if(indexMot < 0 || indexMot >= nbMots){
+        if(indexMot < 0 || indexMot > nbMots){
             return false;
         }
         
@@ -147,5 +157,47 @@ public class Phrase {
         }
         nbMots += autre.nbMots;
         return true;
+    }
+
+    public boolean inserer(char c, int indexMot, int indexLettre) {
+        Mot mot = getMot(indexMot);
+        if(mot != null){
+            mot.inserer(c, indexLettre);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean inserer(Mot autre, int indexMot){
+        if (autre == null || indexMot < 0 || indexMot > nbMots) return false;
+        if (indexMot == 0) {
+            autre.suivant = premier;
+            premier = autre;
+            if (dernier == null) dernier = autre;
+        } else if (indexMot == nbMots) {
+            if (dernier != null) dernier.suivant = autre;
+            dernier = autre;
+            if (premier == null) premier = autre;
+        } else {
+            Mot avant = getMot(indexMot - 1);
+            autre.suivant = avant.suivant;
+            avant.suivant = autre;
+        }
+        nbMots++;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        String result = "";
+        Mot courant = premier;
+        while(courant != null){
+            result += courant.toString();
+            if(courant.suivant != null){
+                result += " ";
+            }
+            courant = courant.suivant;
+        }
+        return result;
     }
 }
