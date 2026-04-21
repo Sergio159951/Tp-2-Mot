@@ -36,11 +36,12 @@ public class Phrase {
 
     public int getLongueur(){
         int tailleTotal = 0;
+
         Mot courant = premier;
 
         while(courant != null){
             tailleTotal += courant.getLongueur();
-            if (courant.suivant == null){
+            if (courant.suivant != null){
                 tailleTotal++;
             }
             courant = courant.suivant;
@@ -93,14 +94,13 @@ public class Phrase {
     }
 
     public void ajouter(char c){
-    if(dernier == null){
-        Mot nouveau = new Mot(String.valueOf(c));
-        ajouter(nouveau);
-    }else {
-        dernier.ajouter(c);
+        if(dernier == null){
+            Mot nouveau = new Mot(String.valueOf(c));
+            ajouter(nouveau);
+        }else {
+            dernier.ajouter(c);
+        }
     }
-    nbMots++;
-}
 
     public void ajouter(Mot mot) {
         Mot courant = premier;
